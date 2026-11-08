@@ -1,0 +1,67 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Daily Mart – Everything You Need, All in One Place!</title>
+<style>
+:root{--g:#0b5d1e;--g2:#1e9e2f;--l:#c6f000}*{box-sizing:border-box}body{margin:0;font-family:system-ui,Arial,sans-serif;background:#f6f8f6;color:#1a1a1a}a{color:inherit;text-decoration:none}
+.top{background:var(--g);color:#fff;font-size:13px;padding:8px 16px;display:flex;gap:18px;flex-wrap:wrap}
+header{background:#fff;display:flex;align-items:center;gap:16px;padding:10px 16px;flex-wrap:wrap}
+.logo{font-size:30px;font-weight:900}.logo b{color:var(--g2)}.logo small{display:block;font-size:11px;font-style:italic;font-weight:600}
+.sr{flex:1;min-width:200px;display:flex}.sr input{flex:1;padding:12px 18px;border:1px solid #ddd;border-radius:30px 0 0 30px;font-size:15px}.sr button{background:var(--g);color:#fff;border:0;padding:0 20px;border-radius:0 30px 30px 0;cursor:pointer}
+nav{background:var(--g);display:flex;overflow-x:auto}nav a{color:#fff;padding:13px 20px;font-weight:600;white-space:nowrap}nav a:hover,nav a.on{background:var(--l);color:#000}
+.hero{position:relative;min-height:240px;background:linear-gradient(110deg,#fff 40%,#2aa63a);display:flex;align-items:center;padding:30px 6%;background-size:cover;background-position:center;transition:.5s}
+.hero h1{font-size:clamp(32px,6vw,60px);margin:0}.hero h1 b{color:var(--g2)}.hero p{font-size:18px;font-weight:600}
+.btn{background:var(--g);color:#fff;border:0;padding:10px 20px;border-radius:25px;font-weight:700;cursor:pointer;display:inline-block}.btn.o{background:#fff;color:var(--g);border:2px solid var(--g2)}
+.cats{display:flex;gap:10px;overflow-x:auto;padding:14px 16px}.cat{min-width:96px;background:#fff;border-radius:10px;padding:10px;text-align:center;font-size:12px;font-weight:600;box-shadow:0 1px 4px #0002;transition:.2s}.cat:hover{transform:translateY(-4px)}.cat i{font-style:normal;font-size:34px;display:block}
+.sec{padding:0 16px 20px}.sec h2{display:flex;justify-content:space-between;align-items:center}.sec h2 a{font-size:14px;color:var(--g2)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}
+.card{background:#fff;border-radius:10px;padding:10px;box-shadow:0 1px 4px #0002;position:relative;text-align:center;animation:f .4s}@keyframes f{from{opacity:0;transform:translateY(10px)}}
+.card .im{height:130px;display:flex;align-items:center;justify-content:center;font-size:60px}.card img{max-width:100%;max-height:130px;object-fit:contain}
+.tag{position:absolute;right:8px;top:8px;background:#e11;color:#fff;font-size:12px;font-weight:700;padding:2px 7px;border-radius:12px}
+.old{text-decoration:line-through;color:#888;font-size:13px}.new{color:var(--g);font-weight:800}.card .btn{width:100%;margin-top:6px;font-size:13px;padding:7px}
+.bar{display:flex;gap:10px;padding:0 16px 10px;flex-wrap:wrap}select,input,textarea{padding:9px;border:1px solid #ccc;border-radius:8px;font:inherit}
+.box{background:#fff;border-radius:12px;padding:20px;margin:0 16px 20px;max-width:900px}.det{display:flex;gap:24px;flex-wrap:wrap}.det .im{flex:1;min-width:240px;text-align:center;font-size:120px}.det img{max-width:100%;max-height:340px}.det>div:last-child{flex:1;min-width:260px}
+.row{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid #eee;padding:8px 0;align-items:center}
+form.f{display:grid;gap:10px;margin-top:14px}
+footer{background:var(--g);color:#fff;padding:20px 16px;display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between;align-items:center}footer a{margin-right:14px;text-decoration:underline}
+.wa{background:var(--l);color:#000;padding:12px 22px;border-radius:30px;font-weight:800}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#000;color:#fff;padding:10px 20px;border-radius:20px;display:none}
+</style></head><body>
+<div class="top"><span>🚚 Free Delivery All Over Pakistan</span><span>✅ Easy Returns &amp; Refunds</span><span>🔒 Secure Shopping</span></div>
+<header><a href="#/" class="logo">🛒 Daily <b>Mart</b><small>Everything You Need, All in One Place!</small></a>
+<form class="sr" onsubmit="event.preventDefault();location.hash='#/s/'+encodeURIComponent(this.q.value)"><input name="q" placeholder="Search for products..."><button>🔍</button></form>
+<a href="#/cart" style="font-weight:700">🛒 Cart (<span id="cc">0</span>)</a></header>
+<nav><a href="#/">🏠 Home</a><a href="#/all">All Products</a><a href="#/sec/new">New Arrivals</a><a href="#/sec/best">Best Sellers</a><a href="#/sec/deal">Special Discounts</a><a href="#/page/contact">Contact Us</a></nav>
+<main id="app"></main>
+<footer><div><a href="#/page/privacy">Privacy Policy</a><a href="#/page/returns">Return &amp; Refund Policy</a><a href="#/page/terms">Terms &amp; Conditions</a><div style="margin-top:8px">© Daily Mart</div></div><a id="wal" class="wa" target="_blank">Order Now on WhatsApp</a></footer>
+<div id="toast"></div>
+<script>
+const $=s=>document.querySelector(s),app=$('#app'),E={'Electronics':'💻','Mobile Phones & Accessories':'📱',"Men's Fashion":'👕',"Women's Fashion":'👗',"Kids' Fashion":'🧸','Shoes & Footwear':'👟','Grocery & Food':'🧺','Beauty & Skincare':'💄','Home & Kitchen':'🍳','Sports & Fitness':'⚽','Watches':'⌚','Bags & Accessories':'🎒','Toys & Games':'🧸','Stationery':'✏️'};
+const R=n=>'Rs. '+Number(n).toLocaleString('en-PK'),api=u=>fetch(u).then(r=>r.json()),esc=s=>String(s??'').replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
+const cart=()=>JSON.parse(localStorage.cart||'[]'),save=c=>{localStorage.cart=JSON.stringify(c);$('#cc').textContent=c.reduce((a,b)=>a+b.qty,0)};
+const pr=p=>p.sale_price>0?p.sale_price:p.price,toast=m=>{const t=$('#toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',1800)};
+let CFG={},CATS=[];const img=p=>p.image?`<img src="/uploads/${esc(p.image)}" alt="">`:(E[(CATS.find(c=>c.id==p.category_id)||{}).name]||'🛍️');
+function waLink(msg){return`https://wa.me/${CFG.whatsapp}?text=${encodeURIComponent(msg)}`}
+function waProd(p,q=1,s='',c=''){return waLink(`Hello Daily Mart, I want to order:\nProduct: ${p.name}\nPrice: ${R(pr(p))}\nQuantity: ${q}${s?'\nSize: '+s:''}${c?'\nColor: '+c:''}\nLink: ${location.origin}/#/p/${p.id}\n\nName:\nAddress:\nPhone:`)}
+function add(id,q=1,s='',c=''){const k=cart(),x=k.find(i=>i.id==id&&i.size==s&&i.color==c);x?x.qty+=q:k.push({id,qty:q,size:s,color:c});save(k);toast('Added to cart ✓')}
+const card=p=>`<div class="card"><a href="#/p/${p.id}"><div class="im">${img(p)}</div>${p.sale_price>0?`<span class="tag">-${Math.round(100-p.sale_price/p.price*100)}%</span>`:''}<b>${esc(p.name)}</b><div>${p.sale_price>0?`<span class="old">${R(p.price)}</span> `:''}<span class="new">${R(pr(p))}</span></div></a>${p.stock>0?`<button class="btn" onclick="add(${p.id})">🛒 Add to Cart</button><a class="btn o" target="_blank" href="${waProd(p)}" style="display:block;text-align:center;margin-top:6px;font-size:13px;padding:6px">Order on WhatsApp</a>`:'<p style="color:#e11">Out of stock</p>'}</div>`;
+const grid=ps=>ps.length?`<div class="grid">${ps.map(card).join('')}</div>`:'<p>No products found.</p>';
+const sec=(t,ps,l)=>ps.length?`<div class="sec"><h2>${t}<a href="${l}">View All →</a></h2>${grid(ps.slice(0,6))}</div>`:'';
+const PAGES={privacy:['Privacy Policy','We collect only the name, phone and address you give when ordering, used solely to process and deliver your order. We never sell your data. (Owner: edit this text in public/index.html)'],returns:['Return & Refund Policy','Describe your return window and refund conditions here. (Owner: edit this text in public/index.html)'],terms:['Terms & Conditions','Daily Mart is a single-store online shop. Prices are in PKR. Orders are confirmed by Daily Mart. (Owner: edit this text in public/index.html)'],contact:['Contact Us',`Order or ask us anything on WhatsApp: <a class="wa" target="_blank" href="${'https://wa.me/'}">Chat on WhatsApp</a>`]};
+async function route(){const h=location.hash.slice(2).split('/'),[a,b]=h;window.scrollTo(0,0);
+ if(!a){const[bn,...s]=await Promise.all([api('/api/banners'),...['featured','new','best','deal'].map(x=>api('/api/products?section='+x))]);
+  app.innerHTML=`<div class="hero" id="hero"><div><h1>Daily <b>Mart</b></h1><p><i>Everything You Need, All in One Place!</i><br>Shop Smart • Save More • Live Better</p><a class="btn" href="#/all">Shop Now →</a></div></div><div class="cats">${CATS.map(c=>`<a class="cat" href="#/cat/${c.id}"><i>${E[c.name]||'🛍️'}</i>${esc(c.name)}</a>`).join('')}</div>`+sec('⭐ Featured Products',s[0],'#/all')+sec('New Arrivals',s[1],'#/sec/new')+sec('Best Sellers',s[2],'#/sec/best')+sec('Special Discounts',s[3],'#/sec/deal');
+  if(bn.length){let i=0;const set=()=>{const x=bn[i++%bn.length],e=$('#hero');if(!e)return;e.style.backgroundImage=x.image?`url(/uploads/${x.image})`:'';e.querySelector('h1').innerHTML=esc(x.title||'Daily <b>Mart</b>');e.querySelector('p').textContent=x.subtitle||''};set();clearInterval(window.bt);window.bt=setInterval(set,5000)}
+ }else if(a=='p'){const p=await api('/api/products/'+b);if(p.error)return app.innerHTML='<div class="box">Product not found</div>';
+  const sz=p.sizes?p.sizes.split(','):[],co=p.colors?p.colors.split(','):[];
+  app.innerHTML=`<div class="box"><div class="det"><div class="im">${img(p)}</div><div><h2>${esc(p.name)}</h2><p>${p.sale_price>0?`<span class="old">${R(p.price)}</span> `:''}<span class="new" style="font-size:24px">${R(pr(p))}</span></p><p>${p.stock>0?`✅ In stock (${p.stock})`:'❌ Out of stock'}</p><p>${esc(p.description)}</p><h4>Specifications</h4><ul>${(p.specs||'').split('\n').filter(Boolean).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
+  ${sz.length?`Size: <select id="sz">${sz.map(x=>`<option>${esc(x.trim())}</option>`).join('')}</select> `:''}${co.length?`Color: <select id="co">${co.map(x=>`<option>${esc(x.trim())}</option>`).join('')}</select> `:''} Qty: <input id="qt" type="number" min="1" max="${p.stock}" value="1" style="width:70px"><br><br>
+  ${p.stock>0?`<button class="btn" onclick="add(${p.id},+qt.value,window.sz?sz.value:'',window.co?co.value:'')">🛒 Add to Cart</button> <a class="btn o" target="_blank" onclick="this.href=gw(${p.id})" href="#">Order on WhatsApp</a>`:''}</div></div></div>`;window.gw=()=>waProd(p,+$('#qt').value||1,window.sz?sz.value:'',window.co?co.value:'')
+ }else if(a=='cart'){const k=cart(),ps=await Promise.all(k.map(i=>api('/api/products/'+i.id)));let t=0;
+  app.innerHTML=`<div class="box"><h2>Your Cart</h2>${k.length?k.map((i,n)=>{const p=ps[n];t+=pr(p)*i.qty;return`<div class="row"><span>${esc(p.name)} ${esc(i.size)} ${esc(i.color)}<br>${R(pr(p))} × <input type="number" min="1" value="${i.qty}" style="width:60px" onchange="upq(${n},this.value)"></span><b>${R(pr(p)*i.qty)}</b><button onclick="rm(${n})">✕</button></div>`}).join('')+`<h3>Total: ${R(t)}</h3><form class="f" id="of"><input name="name" placeholder="Full name" required><input name="phone" placeholder="Phone number" required><textarea name="address" placeholder="Full delivery address" required></textarea><button class="btn">Place Order</button></form>`:'<p>Your cart is empty.</p>'}</div>`;
+  const f=$('#of');if(f)f.onsubmit=async e=>{e.preventDefault();const d=Object.fromEntries(new FormData(f));d.items=k;const r=await(await fetch('/api/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)})).json();if(r.error)return toast(r.error);save([]);
+   const m=`New Daily Mart order #${r.id}\n${r.items.map(l=>`• ${l.name} ×${l.qty} (${R(l.price)})${l.size?' '+l.size:''}${l.color?' '+l.color:''}`).join('\n')}\nTotal: ${R(r.total)}\n\nName: ${d.name}\nPhone: ${d.phone}\nAddress: ${d.address}`;
+   app.innerHTML=`<div class="box"><h2>✅ Order Confirmed!</h2><p>Your order number is <b>#${r.id}</b>. Total: <b>${R(r.total)}</b>. We will contact you shortly.</p><a class="wa" target="_blank" href="${waLink(m)}">Send order details on WhatsApp</a></div>`}
+ }else if(a=='page'){const[t,x]=PAGES[b];app.innerHTML=`<div class="box"><h2>${t}</h2><p>${x.replace('https://wa.me/',`https://wa.me/${CFG.whatsapp}`)}</p></div>`}
+ else{let q='',t='All Products',ps;if(a=='cat'){q='cat='+b;t=(CATS.find(c=>c.id==b)||{}).name}else if(a=='s'){q='q='+b;t='Search: '+decodeURIComponent(b)}else if(a=='sec'){q='section='+b;t={new:'New Arrivals',best:'Best Sellers',deal:'Special Discounts'}[b]}
+  const so=sessionStorage.so||'';ps=await api(`/api/products?${q}&sort=${so}`);app.innerHTML=`<div class="sec"><h2>${esc(t)}</h2><div class="bar"><select onchange="sessionStorage.so=this.value;route()"><option value="">Newest</option><option value="asc" ${so=='asc'?'selected':''}>Price: Low to High</option><option value="desc" ${so=='desc'?'selected':''}>Price: High to Low</option></select></div>${grid(ps)}</div>`}}
+function upq(n,v){const k=cart();k[n].qty=Math.max(1,+v||1);save(k);route()}function rm(n){const k=cart();k.splice(n,1);save(k);route()}
+(async()=>{[CFG,CATS]=await Promise.all([api('/api/config'),api('/api/categories')]);$('#wal').href=waLink('Hello Daily Mart!');save(cart());route()})();addEventListener('hashchange',route);
+</script></body></html>
